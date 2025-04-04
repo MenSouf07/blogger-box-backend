@@ -16,6 +16,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 )
 public class HelloWorldController {
 
+    //http://localhost:1234/Where-is-Bryan
+    @GetMapping("Where-is-Bryan")      
+    public String WhereIsBryan() {
+        return "Bryan is in the kitchen !";
+    }
     //http://localhost:1234/hello-world
     @GetMapping("hello-world")      
     public String helloWord() {
