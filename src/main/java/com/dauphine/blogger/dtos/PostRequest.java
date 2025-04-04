@@ -1,11 +1,11 @@
 package com.dauphine.blogger.dtos;
 
-import java.util.UUID;
+import com.dauphine.blogger.models.Category;
 
 public class PostRequest {
     private String title;
     private String text;
-    private UUID category_id;
+    private Category category;
 
     public String getTitle() {
         return title;
@@ -23,11 +23,11 @@ public class PostRequest {
         this.text = text;
     }
 
-    public UUID getCategory_id() {
-        return category_id;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategory_id(UUID category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

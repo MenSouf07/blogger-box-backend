@@ -31,12 +31,12 @@ public class PostController {
 
     @PostMapping
     public Post create(@RequestBody PostRequest request) {
-        return service.create(request.getTitle(), request.getText(), request.getCategory_id());
+        return service.create(request.getTitle(), request.getText(), request.getCategory());
     }
 
     @PutMapping("{id}")
     public Post update(@PathVariable UUID id, @RequestBody PostRequest request) {
-        return service.update(id, request.getTitle(), request.getText(), request.getCategory_id());
+        return service.update(id, request.getTitle(), request.getText(), request.getCategory());
     }
 
     @DeleteMapping("{id}")

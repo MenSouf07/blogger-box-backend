@@ -3,19 +3,38 @@ package com.dauphine.blogger.models;
 import java.util.Date;
 import java.util.UUID;
 
-public class Post {
-    private UUID id;
-    private String title;
-    private String text;
-    private UUID category_id;
-    private Date created_date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-    public Post(String title, String text, UUID category_id){
+@Entity
+@Table(name = "post")
+public class Post {
+    @Id
+    @Column(name = "id")
+    private UUID id;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "content")
+    private String content;
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Post (){}
+    
+    public Post(String title, String content, Category category){
         this.id = UUID.randomUUID();
         this.title = title;
-        this.text = text;
-        this.category_id = category_id;
-        this.created_date = new Date();
+        this.content = content;
+        this.category = category;
+        this.createdDate = new Date();
     }
 
     
@@ -49,45 +68,45 @@ public class Post {
     }
 
     /**
-     * @return String return the text
+     * @return String return the content
      */
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
     /**
-     * @param text the text to set
+     * @param content the content to set
      */
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String text) {
+        this.content = text;
     }
 
     /**
-     * @return UUID return the category_id
+     * @return Category return the category
      */
-    public UUID getCategoryId() {
-        return category_id;
+    public Category getCategory() {
+        return category;
     }
 
     /**
-     * @param category_id the category_id to set
+     * @param category the category to set
      */
-    public void setCategoryId(UUID category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     /**
-     * @return Date return the created_date
+     * @return Date return the createdDate
      */
     public Date getCreatedDate() {
-        return created_date;
+        return createdDate;
     }
 
     /**
-     * @param created_date the created_date to set
+     * @param createdDate the createdDate to set
      */
-    public void setCreatedDate(Date created_date) {
-        this.created_date = created_date;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

@@ -2,6 +2,7 @@ package com.dauphine.blogger.services.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.dauphine.blogger.models.Category;
 import com.dauphine.blogger.models.Post;
 import com.dauphine.blogger.services.PostService;
 
@@ -16,10 +17,9 @@ public class PostServiceImpl implements PostService {
 
     public PostServiceImpl() {
         this.posts = new ArrayList<>();
-        
-        posts.add(new Post("Hello Blog", "Welcome to my new blog!", UUID.randomUUID()));
-        posts.add(new Post("Second Post", "This is my second post with more content.", UUID.randomUUID()));
-        posts.add(new Post("Tech Talk", "Let's discuss Java and Spring Boot!", UUID.randomUUID()));
+        posts.add(new Post("Hello Blog", "Welcome to my new blog!", new Category(UUID.randomUUID(), "my 1st category")));
+        posts.add(new Post("Second Post", "This is my second post with more content.", new Category(UUID.randomUUID(), "my 2nd category")));
+        posts.add(new Post("Tech Talk", "Let's discuss Java and Spring Boot!", new Category(UUID.randomUUID(), "my 3th category")));
     }
 
     @Override
@@ -36,22 +36,22 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create(String title, String text, UUID category_id) {
-        Post post = new Post(title, text, category_id);
+    public Post create(String title, String content, Category category) {
+        Post post = new Post(title, content, category);
         posts.add(post);
         return post;
     }
 
     @Override
-    public Post update(UUID id, String title, String text, UUID category_id) {
+    public Post update(UUID id, String title, String content, Category category) {
         Post post = posts.stream()
                         .filter(p -> id.equals(p.getId()))
                         .findFirst()
                         .orElse(null);
         if (post != null) {
             post.setTitle(title);
-            post.setText(text);
-            post.setCategoryId(category_id);
+            post.setContent(content);
+            post.setCategory(category);
         }
         return post;
     }
