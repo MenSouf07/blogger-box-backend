@@ -4,6 +4,8 @@ import com.dauphine.blogger.dtos.CategoryRequest;
 import com.dauphine.blogger.models.Category;
 import com.dauphine.blogger.services.CategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +22,15 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getAll() {
-        return service.getAll();
+    @Operation(
+        summary = "Get all categories",
+        description = "retrieve all categories or filter like name"
+    )
+    public List<Category> getAll(@RequestParam(required = false) String name){
+        List<Category> categories = name == null || name.isBlank()
+                                    ? service.getAll()
+                                    : service.getAllLikeName(name);
+        return categories;
     }
 
     @GetMapping("{id}")

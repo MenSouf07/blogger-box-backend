@@ -4,6 +4,8 @@ import com.dauphine.blogger.dtos.PostRequest;
 import com.dauphine.blogger.models.Post;
 import com.dauphine.blogger.services.PostService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +22,17 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAll() {
-        return service.getAll();
+    @Operation(
+        summary = "Get all posts",
+        description = "Retrieve all posts or filter by title/content using the 'value' parameter"
+    )
+    public List<Post> getAll(@RequestParam(required = false) String value) {
+        List<Post> posts = value == null || value.isBlank()
+                            ? service.getAll()
+                            : service.getAllByValue(value);
+        return posts;
     }
+
 
     @GetMapping("{id}")
     public Post getById(@PathVariable UUID id) {

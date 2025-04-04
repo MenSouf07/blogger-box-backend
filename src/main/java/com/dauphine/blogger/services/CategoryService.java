@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface CategoryService {
     List<Category> getAll();
+    
+    List<Category> getAllLikeName(String name);
 
     Category getById(UUID id);
 

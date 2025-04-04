@@ -28,6 +28,10 @@ public class CategoryServiceImpl implements CategoryService{
                         .orElse(null);
     }
 
+    public List<Category> getAllLikeName(String name){
+        return repository.findAllLikeName(name);
+    }
+
     @Override
     public Category create(String name) {
         Category category = new Category(UUID.randomUUID(), name);
